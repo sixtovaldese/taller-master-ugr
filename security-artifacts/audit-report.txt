@@ -1,0 +1,4 @@
+Security Audit Report - ju.,  1 de ene. de 2026 14:13:29
+1. Branch protection: Active on GitHub (Main branch).
+2. Commit signing: Enforced via GPG (Key ID: 6BE1...).
+3. Secret scanning: .gitignore updated to exclude sensitive files.

@@ -1,0 +1,6 @@
+
+# Security rules added by Sixto
+*.pem
+*.key
+.env
+credentials.json
