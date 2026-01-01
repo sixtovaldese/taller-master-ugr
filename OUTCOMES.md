@@ -3,6 +3,7 @@
 **Estudiante:** Sixto Valdes (Grupo A)
 **Nivel:** master-of-the-universe
 **Fecha:** 2026-01-01
+**Repositorio:** [https://github.com/sixtovaldese/taller-master-ugr](https://github.com/sixtovaldese/taller-master-ugr)
 
 ---
 
@@ -30,7 +31,7 @@ Se ha generado una clave GPG de 4096 bits. GitHub reconoce la firma y otorga la 
 ## 5. Reflexión Profesional (Seguridad y DevSecOps)
 
 **¿Por qué es crítica la verificación de commits?**
-En entornos CI/CD, el código es la verdad absoluta. Si un atacante roba una contraseña, podría inyectar código malicioso (Supply Chain Attack). El firmado GPG actúa como un pasaporte digital: sin mi clave privada (instalada en mi portátil), nadie puede suplantar mi identidad en el historial, aunque tengan mi password de GitHub.
+En entornos CI/CD, el código es la verdad absoluta. Si un atacante roba una contraseña, podría inyectar código malicioso (Supply Chain Attack). El firmado GPG actúa como un pasaporte digital: sin mi clave privada, nadie puede suplantar mi identidad en el historial, aunque tengan mi password de GitHub.
 
 **Protección de Ramas como Gobernanza:**
 Las reglas de protección son políticas de calidad. Al exigir "Pull Request" y revisión de Code Owners, implementamos el "Principio de los Cuatro Ojos": ningún cambio llega a producción sin supervisión.
@@ -45,6 +46,15 @@ Las reglas de protección son políticas de calidad. Al exigir "Pull Request" y 
 
 ## 6. Logs Técnicos
 ```text
+commit 1e9a0c2a4bf3d467b8d6ecb0fe8e39a47a0b33b9
+gpg: Signature made ju.,  1 de ene. de 2026 14:45:15 HSP
+gpg:                using RSA key 6BE1A391ABF204685007B7C54C8902BED33F5CC2
+gpg: Good signature from "Sixto Valdes <sixto@datacultura.org>" [ultimate]
+Author: Sixto Valdes <sixto@datacultura.org>
+Date:   Thu Jan 1 14:45:15 2026 -0300
+
+    docs: Entrega Final Master of the Universe (Con Evidencia Visual)
+
 commit 84f9841ecf55b7fab9c78e09c096404baeaf1f95
 gpg: Signature made ju.,  1 de ene. de 2026 14:18:29 HSP
 gpg:                using RSA key 6BE1A391ABF204685007B7C54C8902BED33F5CC2
@@ -53,13 +63,4 @@ Author: Sixto Valdes <sixto@datacultura.org>
 Date:   Thu Jan 1 14:18:29 2026 -0300
 
     docs: Entrega Final Master of the Universe (Signed)
-
-commit cdcf507d07cdcabd808b4f7da0609dfde8f67146
-gpg: Signature made ju.,  1 de ene. de 2026 14:13:30 HSP
-gpg:                using RSA key 6BE1A391ABF204685007B7C54C8902BED33F5CC2
-gpg: Good signature from "Sixto Valdes <sixto@datacultura.org>" [ultimate]
-Author: Sixto Valdes <sixto@datacultura.org>
-Date:   Thu Jan 1 14:13:30 2026 -0300
-
-    chore: Harden repository security configuration
 ```
