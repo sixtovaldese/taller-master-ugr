@@ -1,0 +1,4 @@
+# Secure Workflow Definition
+1. All commits must be signed.
+2. Direct pushes to main are prohibited.
+3. Code Owners review is mandatory.
