@@ -1,73 +1,65 @@
 # Resultados: Nivel Master of the Universe (Trabajo Individual)
 
-> **Nota:** Se utiliza el identificador 'Group-A' por requisitos del formato de entrega, pero certifico que este trabajo es **individual**.
+**Estudiante:** Sixto Valdes (Grupo A)
+**Nivel:** master-of-the-universe
+**Fecha:** 2026-01-01
+
+---
 
 ## 1. Resumen Ejecutivo
-Se ha implementado una capa de seguridad y gobernanza sobre el repositorio. Esto incluye la protección de ramas críticas, el firmado criptográfico de commits (GPG) y la prevención de fugas de secretos.
+En este nivel experto se ha implementado una arquitectura de seguridad "Zero Trust". Se han configurado reglas de protección de ramas para impedir cambios no autorizados y un sistema de identidad criptográfica mediante GPG.
 
-## 2. Protección de Ramas (Branch Protection)
-**Configuración realizada en GitHub:**
-- Rama objetivo: `main`
-- Reglas activas:
-  - *Require pull request before merging*: Obligatorio para Code Review.
-  - *Require signed commits*: Solo commits verificados pueden entrar.
-  - *Do not allow bypassing settings*: Ni siquiera los administradores pueden saltarse las reglas.
+## 2. Evidencia de Protección de Ramas
+Se ha configurado la rama `main` para exigir "Pull Request". El sistema bloquea la fusión directa y exige revisión (estado "Review required" y escudo de seguridad), como se ve en mi PR #12:
 
-## 3. Firmado de Commits (GPG)
-**Infraestructura:**
-- Se generó un par de claves RSA de 4096 bits.
-- Se exportó la clave pública a GitHub.
-- Se configuró Git local para firmar automáticamente (`commit.gpgsign true`).
-**Resultado:** Los commits ahora muestran la etiqueta "Verified" en GitHub, garantizando no repudio e identidad.
+![Evidencia de PR Bloqueado](images/evidencia_pr.png)
 
-## 4. Gestión de Secretos
-**Prevención:** Se ha endurecido el archivo `.gitignore` para bloquear extensiones sensibles como `*.pem`, `*.key` y archivos de entorno `.env`.
-**Auditoría:** Se incluye un reporte de auditoría en la carpeta `security-artifacts`.
+## 3. Evidencia de Firmado GPG (Identidad)
+Se ha generado una clave GPG de 4096 bits. GitHub reconoce la firma y otorga la insignia "Verified", garantizando el "No Repudio".
 
-## 5. Reflexión Profesional
-En entornos empresariales, la identidad lo es todo. Si un atacante compromete una cuenta pero no tiene la clave privada GPG, no puede suplantar al desarrollador en el historial (Supply Chain Security). La combinación de *Branch Protection* + *Signed Commits* crea una cadena de confianza robusta.
+![Evidencia de Commits Verificados](images/verified_commits.png)
 
-## 6. Evidencia Criptográfica
+---
 
+## 4. Gestión de Secretos y Auditoría
+**Prevención:** Se ha endurecido el archivo `.gitignore` para bloquear extensiones críticas (`*.pem`, `*.key`, `.env`).
+**Auditoría:** Se incluye un reporte en `security-artifacts/audit-report.txt` verificando que no existen secretos históricos expuestos.
+
+---
+
+## 5. Reflexión Profesional (Seguridad y DevSecOps)
+
+**¿Por qué es crítica la verificación de commits?**
+En entornos CI/CD, el código es la verdad absoluta. Si un atacante roba una contraseña, podría inyectar código malicioso (Supply Chain Attack). El firmado GPG actúa como un pasaporte digital: sin mi clave privada (instalada en mi portátil), nadie puede suplantar mi identidad en el historial, aunque tengan mi password de GitHub.
+
+**Protección de Ramas como Gobernanza:**
+Las reglas de protección son políticas de calidad. Al exigir "Pull Request" y revisión de Code Owners, implementamos el "Principio de los Cuatro Ojos": ningún cambio llega a producción sin supervisión.
+
+**Estrategia de Gestión de Secretos:**
+"Git es para siempre". Borrar un secreto no lo elimina del historial. Mi estrategia es:
+1.  **Detección:** Hooks pre-commit para escanear antes de subir.
+2.  **Inyección:** Variables de entorno, nunca hardcoded.
+3.  **Rotación:** Si un secreto toca Git, se rota inmediatamente.
+
+---
+
+## 6. Logs Técnicos
 ```text
+commit 84f9841ecf55b7fab9c78e09c096404baeaf1f95
+gpg: Signature made ju.,  1 de ene. de 2026 14:18:29 HSP
+gpg:                using RSA key 6BE1A391ABF204685007B7C54C8902BED33F5CC2
+gpg: Good signature from "Sixto Valdes <sixto@datacultura.org>" [ultimate]
+Author: Sixto Valdes <sixto@datacultura.org>
+Date:   Thu Jan 1 14:18:29 2026 -0300
+
+    docs: Entrega Final Master of the Universe (Signed)
+
 commit cdcf507d07cdcabd808b4f7da0609dfde8f67146
 gpg: Signature made ju.,  1 de ene. de 2026 14:13:30 HSP
 gpg:                using RSA key 6BE1A391ABF204685007B7C54C8902BED33F5CC2
-gpg: checking the trustdb
-gpg: marginals needed: 3  completes needed: 1  trust model: pgp
-gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
 gpg: Good signature from "Sixto Valdes <sixto@datacultura.org>" [ultimate]
 Author: Sixto Valdes <sixto@datacultura.org>
 Date:   Thu Jan 1 14:13:30 2026 -0300
 
     chore: Harden repository security configuration
-
-commit b0fb9dc0dfbe8a0cdf9099e70d6ea883e8fc8d14
-gpg: Signature made lu., 22 de dic. de 2025  5:51:03 HSP
-gpg:                using RSA key 1706CDE4E490D08BBEAD9756063BFCF906BA72B7
-gpg: Can't check signature: No public key
-Author: Miguel Angel Oltra <miguel.oltra@se.com>
-Date:   Mon Dec 22 09:51:02 2025 +0100
-
-    refactor: consolidate master-of-the-universe exercises into single comprehensive exercise
-
-commit d1ef79fc28da80e9a124d2f48449c402f09d2ade
-Author: Miguel Angel Oltra <SESA219665@se.com>
-Date:   Sat Nov 29 12:11:47 2025 +0100
-
-    docs: Add submission instructions to master-of-the-universe level
-
-commit 5bffa64b86e846199a574a4b92e3009d7bde1492
-Author: Miguel Angel Oltra <SESA219665@se.com>
-Date:   Sat Nov 29 11:57:02 2025 +0100
-
-    Update README for master-of-the-universe level exercises
-
-commit dc582031fed7a252a3c583fe16f497dbc9dcedd1
-Author: Miguel Angel Oltra <SESA219665@se.com>
-Date:   Sat Oct 25 12:14:28 2025 +0200
-
-    Revert "Update README.md"
-    
-    This reverts commit e2db1ca85b4c8eca7b31d883744bd3a6f5e444b3.
 ```
