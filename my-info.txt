@@ -1,0 +1,3 @@
+Nombre: Sixto Valdes
+Lenguaje: Python
+Motivo: Aprender Git para desarrollo profesional
